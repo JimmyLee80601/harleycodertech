@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Harley Coder Tech — Device Repair &amp; Diagnostics | Brighton, CO</title>
   <meta name="description" content="Cyberpunk-styled device repair, diagnostics, and micro-soldering in Brighton, CO. Screen replacements, batteries, micro-soldering, data recovery, FRP removal, carrier unlocking.">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -96,7 +96,7 @@
       <button class="modal-close" type="button" data-book-close aria-label="Close booking form">&times;</button>
       <h2 id="bookTitle"><span>&gt;</span> book_a_repair_</h2>
       <p>Fill this out and hit Send booking — it sends straight to the shop, no email app needed.</p>
-      <form id="bookForm" action="https://formsubmit.co/georgiaboy77535@gmail.com" method="POST">
+      <form id="bookForm" action="https://formsubmit.co/georgiaboy77535@gmail.com" method="POST" novalidate>
         <input type="hidden" name="_subject" value="HarleyCoderTech repair booking">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
@@ -104,13 +104,31 @@
         <input type="text" name="_honey" style="display:none">
         <label>Name *<input name="name" required autocomplete="name" placeholder="Your name"></label>
         <label>Device *<input name="device" required placeholder="e.g. Galaxy S23 Ultra, iPhone 13"></label>
+        <label>Problem type<select name="problem_type">
+          <option value="">Pick one (optional)</option>
+          <option>Cracked screen</option>
+          <option>Battery</option>
+          <option>Charging port</option>
+          <option>Water damage</option>
+          <option>Data recovery</option>
+          <option>FRP / carrier unlock</option>
+          <option>Diagnostics</option>
+          <option>Other</option>
+        </select></label>
         <label>Problem *<textarea name="problem" required rows="4" placeholder="What is wrong with it? Cracked screen, won't charge, etc."></textarea></label>
         <label>Phone or email, so I can reply<input name="contact" placeholder="Phone or email (optional)"></label>
+        <label>Best way to reach you<select name="reply_pref">
+          <option value="">No preference</option>
+          <option>Call</option>
+          <option>Text</option>
+          <option>Email</option>
+        </select></label>
+        <p class="form-error" id="bookFormError" hidden></p>
         <button class="btn" type="submit">Send booking</button>
         <button class="btn magenta" type="button" data-book-close>Cancel</button>
       </form>
     </div>
   </div>
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=2"></script>
 </body>
 </html>

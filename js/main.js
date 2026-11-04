@@ -34,4 +34,34 @@
     modal.addEventListener('click', function (e) { if (e.target === modal) closeBook(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeBook(); });
     // submit is a plain POST to FormSubmit: no mailto, no email app needed.
+    // Loud validation: the browser's built-in required-field block is
+    // silent on some phones, so check here and show the missing fields
+    // in the form itself instead of just not sending.
+    var form = document.getElementById('bookForm');
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        var err = document.getElementById('bookFormError');
+        var missing = [];
+        ['name', 'device', 'problem'].forEach(function (n) {
+          var f = form.querySelector('[name="' + n + '"]');
+          if (!f) return;
+          if (!f.value.trim()) { missing.push(n); f.classList.add('field-error'); }
+          else { f.classList.remove('field-error'); }
+        });
+        if (missing.length) {
+          e.preventDefault();
+          if (err) {
+            err.hidden = false;
+            err.textContent = 'Please fill in: ' + missing.join(', ') + ' — all three are needed before this sends.';
+          }
+          var first = form.querySelector('[name="' + missing[0] + '"]');
+          if (first) first.focus();
+        } else if (err) {
+          err.hidden = true;
+        }
+      });
+      form.querySelectorAll('input, textarea, select').forEach(function (f) {
+        f.addEventListener('input', function () { f.classList.remove('field-error'); });
+      });
+    }
   })();
