@@ -67,16 +67,19 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="bookTitle">
       <button class="modal-close" type="button" data-book-close aria-label="Close booking form">&times;</button>
       <h2 id="bookTitle"><span>&gt;</span> book_a_repair_</h2>
-      <p>Fill this out and it opens an email to the shop with your booking ready to send.</p>
-      <form id="bookForm">
+      <p>Fill this out and hit Send booking — it sends straight to the shop, no email app needed.</p>
+      <form id="bookForm" action="https://formsubmit.co/georgiaboy77535@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="HarleyCoderTech repair booking">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://jimmylee80601.github.io/harleycodertech/thanks.html">
+        <input type="text" name="_honey" style="display:none">
         <label>Name *<input name="name" required autocomplete="name" placeholder="Your name"></label>
         <label>Device *<input name="device" required placeholder="e.g. Galaxy S23 Ultra, iPhone 13"></label>
         <label>Problem *<textarea name="problem" required rows="4" placeholder="What is wrong with it? Cracked screen, won't charge, etc."></textarea></label>
         <label>Phone or email, so I can reply<input name="contact" placeholder="Phone or email (optional)"></label>
         <button class="btn" type="submit">Send booking</button>
         <button class="btn magenta" type="button" data-book-close>Cancel</button>
-        <p class="form-note" id="bookNote" hidden>Booking ready &mdash; your email app should have opened. If it did not, copy the text below and send it to georgiaboy77535@gmail.com.</p>
-        <textarea id="bookCopy" hidden readonly rows="6"></textarea>
       </form>
     </div>
   </div>
