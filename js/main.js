@@ -33,14 +33,5 @@
     document.querySelectorAll('[data-book-close]').forEach(function (b) { b.addEventListener('click', closeBook); });
     modal.addEventListener('click', function (e) { if (e.target === modal) closeBook(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeBook(); });
-    var form = document.getElementById('bookForm');
-    if (form) form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = form.name.value.trim(), device = form.device.value.trim(), problem = form.problem.value.trim(), contact = form.contact.value.trim();
-      var text = 'Repair booking\nName: ' + name + '\nDevice: ' + device + '\nProblem: ' + problem + (contact ? '\nContact: ' + contact : '');
-      var note = document.getElementById('bookNote'), copy = document.getElementById('bookCopy');
-      if (note) note.hidden = false;
-      if (copy) { copy.hidden = false; copy.value = text; }
-      window.location.href = 'mailto:georgiaboy77535@gmail.com?subject=' + encodeURIComponent('Repair booking: ' + device) + '&body=' + encodeURIComponent(text);
-    });
+    // submit is a plain POST to FormSubmit: no mailto, no email app needed.
   })();
