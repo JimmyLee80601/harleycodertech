@@ -59,8 +59,8 @@
           return;
         }
         if (err) err.hidden = true;
-        // AJAX submit: a plain POST to FormSubmit lands the customer on
-        // FormSubmit's own error page (e.g. Cloudflare 522) if their host
+        // AJAX submit: a plain POST to the relay lands the customer on the
+        // relay's own error page (e.g. Cloudflare 522) if their host
         // is down, and the booking is lost. Stay on the page instead, and
         // offer a direct-email fallback if the relay fails or times out.
         e.preventDefault();
@@ -72,9 +72,10 @@
           var f = form.querySelector('[name="' + n + '"]');
           if (f && f.value.trim()) data[n] = f.value.trim();
         });
-        data._subject = 'HarleyCoderTech repair booking';
-        data._template = 'table';
-        data._captcha = 'false';
+        data.access_key = 'dd335fbb-87d2-4f5c-b857-84a788081158';
+        data.subject = 'HarleyCoderTech repair booking';
+        data.from_name = 'HarleyCoderTech booking form';
+        if (data.contact && data.contact.indexOf('@') !== -1) data.email = data.contact;
         var text = 'Repair booking\nName: ' + (data.name || '') + '\nDevice: ' + (data.device || '') + '\nProblem: ' + (data.problem || '') + (data.contact ? '\nContact: ' + data.contact : '');
         function showFallback(msg) {
           if (err) { err.hidden = false; err.textContent = msg; }
@@ -90,7 +91,7 @@
         }
         var ctl = new AbortController();
         setTimeout(function () { ctl.abort(); }, 20000);
-        fetch('https://formsubmit.co/ajax/georgiaboy77535@gmail.com', {
+        fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify(data),
@@ -99,10 +100,10 @@
           if (res && (res.success === true || res.success === 'true')) {
             window.location.href = 'thanks.html';
           } else {
-            showFallback('FormSubmit did not deliver this yet — it usually means the form still needs its one-time activation email clicked, or their server is down. Your booking was NOT sent by this button. Use the email button below instead, and it will go straight to the shop.');
+            showFallback('Web3Forms did not deliver this yet. Your booking was NOT sent by this button. Use the email button below instead, and it will go straight to the shop.');
           }
         }).catch(function () {
-          showFallback('FormSubmit timed out just now (their server, Error 522 style — not your form). Your booking was NOT sent. Use the email button below instead, and it will go straight to the shop.');
+          showFallback('Web3Forms timed out just now (their server — not your form). Your booking was NOT sent. Use the email button below instead, and it will go straight to the shop.');
         });
       });
       form.querySelectorAll('input, textarea, select').forEach(function (f) {
